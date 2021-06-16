@@ -54,7 +54,7 @@ export default function Header(props) {
             direction="row"
           >
             <Grid
-              to="/home"
+              to="/"
               component={Link}
               container
               alignItems="center"

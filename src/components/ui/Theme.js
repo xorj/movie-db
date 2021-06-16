@@ -27,8 +27,8 @@ export default createMuiTheme({
       color: green,
     },
     h2: {
-      fontFamily: "Lato",
-      fontSize: "2.5rem",
+      fontFamily: "Roboto",
+      fontSize: "2rem",
       fontWeight: 500,
       color: black,
     },
@@ -39,6 +39,7 @@ export default createMuiTheme({
     },
     body1: {
       fontFamily: "Lato",
+      fontSize: "1.2rem",
       fontWeight: 500,
     },
   },

@@ -14,36 +14,31 @@ import Search from "./pages/Search";
 import Favorites from "./pages/Favorites";
 import Movie from "./pages/Movie";
 
-
-
 function App() {
   const [selectedLink, setSelectedLink] = useState(window.location.pathname);
 
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
-        <Header
-          selectedLink={selectedLink}
-          setSelectedLink={setSelectedLink}
-        />
-              <Switch>
-        <Route path="/search" component={Search} />
-     
-        <Route path="/favorites" component={Favorites} />
-        <Route path="/movie/:id" component={Movie} />
-        <Route exact path="/home" component={Home} />
-        <Route
-          component={() => (
-            <Typography
-              style={{
-                padding: "2vh",
-              }}
-            >
-              404 - Página não Encontrada
-            </Typography>
-          )}
-        />
-      </Switch>
+        <Header selectedLink={selectedLink} setSelectedLink={setSelectedLink} />
+        <Switch>
+          <Route path="/search" component={Search} />
+
+          <Route path="/favorites" component={Favorites} />
+          <Route path="/movie/:id" component={Movie} />
+          <Route exact path="/" component={Home} />
+          <Route
+            component={() => (
+              <Typography
+                style={{
+                  padding: "2vh",
+                }}
+              >
+                404 - Página não Encontrada
+              </Typography>
+            )}
+          />
+        </Switch>
       </BrowserRouter>
     </ThemeProvider>
   );
