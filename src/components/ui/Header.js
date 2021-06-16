@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import {
   AppBar,
-  Tabs,
-  Tab,
   Toolbar,
   useMediaQuery,
   Grid,
+  Typography,
 } from "@material-ui/core";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-
-
 import { Link } from "react-router-dom";
+
+/*Icones*/
+import { LocalMovies as Icon } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -20,27 +20,10 @@ const useStyles = makeStyles((theme) => ({
     ...theme.mixins.toolbar,
     marginBottom: "1em",
   },
-  tabs: {
-    marginLeft: "auto",
-    marginRight: "20px",
-    height: "5rem",
-    alignItems: "center",
-  },
-
-  tab: {
-    textDecoration: "none",
-    ...theme.typography.menu,
-    minWidth: "8rem",
-    height: "5rem",
-    marginLeft: "20px",
-    opacity: 0.7,
-    fontWeight: 700,
-  },
-  selectedTab: {
-    opacity: 1,
+  icon: {
+    width: "200px",
     color: theme.palette.common.white,
   },
-  
 }));
 
 export default function Header(props) {
@@ -50,11 +33,10 @@ export default function Header(props) {
   //Melhora a performance em iOS
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
-
   const handleTabClick = (event, value) => {
     props.setSelectedLink(value);
   };
- 
+
   return (
     <React.Fragment>
       <AppBar
@@ -62,14 +44,29 @@ export default function Header(props) {
         style={{ zIndex: 1302 }}
         className={classes.appBar}
       >
-        <Grid
-          container
-          direction="row"
-          justify={matchesMD ? "flex-end" : "center"}
-        >
-          <Toolbar disableGutters className={classes.toolbar}>
-            {tabs}
-          </Toolbar>
+        <Grid container direction="row" justify={"flex-start"}>
+          <Typography
+            className={classes.icon}
+            variant="h6"
+            container
+            component={Grid}
+            justify="center"
+            direction="row"
+          >
+            <Grid
+              to="/home"
+              component={Link}
+              container
+              alignItems="center"
+              justify="center"
+              direction="row"
+              style={{ color: "inherit", textDecoration: "inherit" }}
+            >
+              <Icon />
+              MovieDB
+            </Grid>
+          </Typography>
+          <Toolbar disableGutters className={classes.toolbar}></Toolbar>
         </Grid>
       </AppBar>
       <div className={classes.toolbarMargin} />

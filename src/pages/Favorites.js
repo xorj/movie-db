@@ -10,7 +10,9 @@ export default function Favorites(props) {
     const theme = useTheme();
     const classes = useStyles();
     return (<Grid>
-      
+        <Typography align="center" variant="h2">
+            /favorites
+        </Typography>
     </Grid>)
 
 }
