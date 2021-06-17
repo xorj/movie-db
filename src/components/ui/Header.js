@@ -31,8 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Header(props) {
   const classes = useStyles();
-  const theme = useTheme();
-  
+
   const history = useHistory();
   const [searchQuery, setSearchQuery] = useState();
 
@@ -88,13 +87,13 @@ export default function Header(props) {
             <TextField
               placeholder="Busque um filme"
               variant="filled"
+              color="secondary"
               style={{ marginRight: "15px" }}
               value={searchQuery}
               onKeyPress={(event) =>
                 event.key === "Enter" ? goTo(`/search?${searchQuery}`) : ""
               }
               onChange={(event) => changeSearchValue(event)}
-              placeholder="Search..."
             />
             <Button
               variant="contained"

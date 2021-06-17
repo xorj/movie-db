@@ -55,7 +55,7 @@ export default function Home(props) {
   useEffect(loadMovies, [currentPage]);
 
   return (
-    <Grid container direction="column">
+    <Grid container direction="column" style={{padding: "15px"}}>
       <Typography align="left" variant="h4" className={classes.title}>
         Filmes Populares
       </Typography>

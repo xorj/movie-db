@@ -4,6 +4,7 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 
 //Componentes
 import Loading from "../components/ui/loading/Loading";
+import MovieList from "../components/MovieList";
 import instance from "../axios";
 
 const useStyles = makeStyles((theme) => ({}));
@@ -28,17 +29,10 @@ export default function Search(props) {
       .then((response) => {
         setResults(response.data.results);
         setLoaded(true);
-        const searchQuery = props.location.search
-          .replace("%20", " ")
-          .substr(1, props.location.search.length - 1)
-          .trim();
-
         if (response.data.results.length < 1) {
-          setMessage(`Sem resultados para a busca "${searchQuery}"`);
+          setMessage("Sem resultados para a busca");
         } else {
-          setMessage(
-            `${props.location.search.length} resultados para "${searchQuery}"`
-          );
+          setMessage("Resultados:");
         }
       })
       .catch((error) => {
@@ -51,10 +45,18 @@ export default function Search(props) {
   let content = <Loading />;
   if (loaded) {
     content = (
-      <React.Fragment>
-        <Typography className="results-title"> {message} </Typography>
-        {console.log(results)}
-      </React.Fragment>
+      <Grid
+        style={{
+          padding: "15px",
+          marginTop: "50px",
+        }}
+      >
+        <Typography variant="h4" gutterBottom>
+          {" "}
+          {message}{" "}
+        </Typography>
+        <MovieList movieList={results} />
+      </Grid>
     );
   }
   return <Grid>{content}</Grid>;

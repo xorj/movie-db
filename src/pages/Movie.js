@@ -85,7 +85,7 @@ export default function Movies(props) {
           {movieInfo.title} (
           {movieInfo.release_date ? movieInfo.release_date.split("-")[0] : ""})
         </Typography>
-        <Grid container alignItems="center" gutterBottom>
+        <Grid container alignItems="center">
           <Nota color="primary" />
           <Typography variant="h4" style={{ marginLeft: "10px" }}>
             {movieInfo.vote_average}
