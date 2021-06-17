@@ -15,12 +15,11 @@ import Favorites from "./pages/Favorites";
 import Movie from "./pages/Movie";
 
 function App() {
-  const [selectedLink, setSelectedLink] = useState(window.location.pathname);
 
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
-        <Header selectedLink={selectedLink} setSelectedLink={setSelectedLink} />
+        <Header/>
         <Switch>
           <Route path="/search" component={Search} />
 
