@@ -1,25 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { Typography, Grid } from "@material-ui/core";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 
 //Componentes
 import Loading from "../components/ui/loading/Loading";
 import MovieList from "../components/MovieList";
 import instance from "../axios";
 
-const useStyles = makeStyles((theme) => ({}));
+const useStyles = makeStyles((theme) => ({
+  title: {
+    maxWidth: "350px",
+    fontSize: "35px",
+    margin: "20px 0",
+    padding: "0 15px 15px 15px",
+    borderBottom: `5px solid ${theme.palette.common.green}`,
+    borderRight: `5px solid ${theme.palette.common.green}`,
+    borderRadius: "0px 0px 40px 0px",
+  },
+}));
 
 export default function Search(props) {
-  const theme = useTheme();
   const classes = useStyles();
   const [loaded, setLoaded] = useState(false);
   const [results, setResults] = useState([]);
   const [message, setMessage] = useState("");
-
-  //Scroll to top on page change
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   const getMovieSearch = () => {
     instance
@@ -32,7 +36,7 @@ export default function Search(props) {
         if (response.data.results.length < 1) {
           setMessage("Sem resultados para a busca");
         } else {
-          setMessage("Resultados:");
+          setMessage("Resultados da busca");
         }
       })
       .catch((error) => {
@@ -48,11 +52,9 @@ export default function Search(props) {
       <Grid
         style={{
           padding: "15px",
-          marginTop: "50px",
         }}
       >
-        <Typography variant="h4" gutterBottom>
-          {" "}
+        <Typography align="left" variant="h4" className={classes.title}>
           {message}{" "}
         </Typography>
         <MovieList movieList={results} />

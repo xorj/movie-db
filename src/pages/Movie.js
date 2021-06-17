@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Typography, Grid, Chip } from "@material-ui/core";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 
 /*Icons*/
 import { Star as Nota } from "@material-ui/icons";
@@ -39,7 +39,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Movies(props) {
-  const theme = useTheme();
   const classes = useStyles();
   const [movieInfo, setMovieInfo] = useState({});
 
@@ -54,7 +53,7 @@ export default function Movies(props) {
       });
   };
 
-  useEffect(getMovieInfo, []);
+  useEffect(getMovieInfo, [props.match.params.id]);
 
   return (
     <Grid

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {
   AppBar,
+  useMediaQuery,
   Toolbar,
   Grid,
   Typography,
@@ -22,15 +23,24 @@ const useStyles = makeStyles((theme) => ({
   toolbarMargin: {
     ...theme.mixins.toolbar,
     marginBottom: "1em",
+    [theme.breakpoints.down("xs")]: {
+      marginBottom: "5em",
+
+    }
   },
   icon: {
     width: "200px",
+    padding: "10px",
     color: theme.palette.common.white,
   },
 }));
 
 export default function Header(props) {
   const classes = useStyles();
+  const theme = useTheme();
+
+  //
+  const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
 
   const history = useHistory();
   const [searchQuery, setSearchQuery] = useState();
@@ -55,7 +65,7 @@ export default function Header(props) {
           className={classes.navBar}
           container
           direction="row"
-          justify="flex-start"
+          justify={matchesSM ? "center" : "space-between"}
           alignItems="space-between"
         >
           <Typography
@@ -80,7 +90,7 @@ export default function Header(props) {
             </Grid>
           </Typography>
           <Toolbar
-            style={{ marginLeft: "auto", marginRight: "40px" }}
+            style={{ margin: "0 20px" }}
             disableGutters
             className={classes.toolbar}
           >
