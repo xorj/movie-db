@@ -11,7 +11,6 @@ import Header from "./components/ui/Header";
 /*Páginas*/
 import Home from "./pages/Home";
 import Search from "./pages/Search";
-import Favorites from "./pages/Favorites";
 import Movie from "./pages/Movie";
 
 function App() {
@@ -22,7 +21,6 @@ function App() {
         <Header/>
         <Switch>
           <Route path="/search" component={Search} />
-          <Route path="/favorites" component={Favorites} />
           <Route path="/movie/:id" component={Movie} />
           <Route exact path="/" component={Home} />
           <Route
