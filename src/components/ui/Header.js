@@ -2,15 +2,18 @@ import React, { useState } from "react";
 import {
   AppBar,
   Toolbar,
-  useMediaQuery,
   Grid,
   Typography,
+  TextField,
+  Button,
 } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
+
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 
 /*Icones*/
-import { LocalMovies as Icon } from "@material-ui/icons";
+import { LocalMovies as Icon, Search } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -29,12 +32,17 @@ const useStyles = makeStyles((theme) => ({
 export default function Header(props) {
   const classes = useStyles();
   const theme = useTheme();
-  const matchesMD = useMediaQuery(theme.breakpoints.down("md"));
-  //Melhora a performance em iOS
-  const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
+  
+  const history = useHistory();
+  const [searchQuery, setSearchQuery] = useState();
 
-  const handleTabClick = (event, value) => {
-    props.setSelectedLink(value);
+  const changeSearchValue = (event) => {
+    const query = event.target.value;
+    setSearchQuery(query);
+  };
+
+  const goTo = (destiny) => {
+    history.push(destiny);
   };
 
   return (
@@ -44,7 +52,13 @@ export default function Header(props) {
         style={{ zIndex: 1302 }}
         className={classes.appBar}
       >
-        <Grid container direction="row" justify={"flex-start"}>
+        <Grid
+          className={classes.navBar}
+          container
+          direction="row"
+          justify="flex-start"
+          alignItems="space-between"
+        >
           <Typography
             className={classes.icon}
             variant="h6"
@@ -66,7 +80,32 @@ export default function Header(props) {
               MovieDB
             </Grid>
           </Typography>
-          <Toolbar disableGutters className={classes.toolbar}></Toolbar>
+          <Toolbar
+            style={{ marginLeft: "auto", marginRight: "40px" }}
+            disableGutters
+            className={classes.toolbar}
+          >
+            <TextField
+              placeholder="Busque um filme"
+              variant="filled"
+              style={{ marginRight: "15px" }}
+              value={searchQuery}
+              onKeyPress={(event) =>
+                event.key === "Enter" ? goTo(`/search?${searchQuery}`) : ""
+              }
+              onChange={(event) => changeSearchValue(event)}
+              placeholder="Search..."
+            />
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={
+                searchQuery ? () => goTo(`/search?${searchQuery}`) : () => {}
+              }
+            >
+              <Search />
+            </Button>
+          </Toolbar>
         </Grid>
       </AppBar>
       <div className={classes.toolbarMargin} />

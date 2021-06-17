@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Typography, Grid, Chip } from "@material-ui/core";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 
+/*Icons*/
+import { Star as Nota } from "@material-ui/icons";
+
 /*Componentes*/
 import instance from "../axios";
 
@@ -16,12 +19,11 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.common.white,
   },
   movieInfo: {
-    padding: "20px 20px 5px 20px",
+    padding: "30px",
     backgroundColor: theme.palette.common.white,
     borderRadius: "5px",
     maxWidth: "1000px",
-    height: "450px",
-    margin: "20px",
+    margin: "30px 10px",
   },
   moviePoster: {
     backgroundSize: "cover",
@@ -48,7 +50,6 @@ export default function Movies(props) {
              `
       )
       .then((response) => {
-        console.log(response.data);
         setMovieInfo(response.data);
       });
   };
@@ -79,14 +80,23 @@ export default function Movies(props) {
             : "",
         }}
       ></Grid>
-      <Grid container direction="column"  className={classes.movieInfo}>
+      <Grid container direction="column" className={classes.movieInfo}>
         <Typography variant="h2" gutterBottom>
           {movieInfo.title} (
           {movieInfo.release_date ? movieInfo.release_date.split("-")[0] : ""})
         </Typography>
-
-        <Typography  variant="h4" gutterBottom>{movieInfo.tagline}</Typography>
-        <Typography variant="body1" gutterBottom>{movieInfo.overview}</Typography>
+        <Grid container alignItems="center" gutterBottom>
+          <Nota color="primary" />
+          <Typography variant="h4" style={{ marginLeft: "10px" }}>
+            {movieInfo.vote_average}
+          </Typography>
+        </Grid>
+        <Typography variant="h4" gutterBottom>
+          {movieInfo.tagline}
+        </Typography>
+        <Typography variant="body1" gutterBottom>
+          {movieInfo.overview}
+        </Typography>
         <Typography gutterBottom variant="h4">
           Gêneros:
         </Typography>

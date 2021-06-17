@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Favorites(props) {
+export default function MovieList(props) {
   const theme = useTheme();
   const classes = useStyles();
   const movieList = props.movieList;
