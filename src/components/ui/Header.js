@@ -43,7 +43,7 @@ export default function Header(props) {
   const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
 
   const history = useHistory();
-  const [searchQuery, setSearchQuery] = useState();
+  const [searchQuery, setSearchQuery] = useState("");
 
   const changeSearchValue = (event) => {
     const query = event.target.value;
@@ -66,7 +66,7 @@ export default function Header(props) {
           container
           direction="row"
           justify={matchesSM ? "center" : "space-between"}
-          alignItems="space-between"
+          alignItems="center"
         >
           <Typography
             className={classes.icon}
@@ -101,15 +101,15 @@ export default function Header(props) {
               style={{ marginRight: "15px" }}
               value={searchQuery}
               onKeyPress={(event) =>
-                event.key === "Enter" ? goTo(`/search?${searchQuery}`) : ""
+                event.key === "Enter" ? goTo(`/search?q=${searchQuery}`) : ""
               }
-              onChange={(event) => changeSearchValue(event)}
+              onChange={changeSearchValue}
             />
             <Button
               variant="contained"
               color="secondary"
               onClick={
-                searchQuery ? () => goTo(`/search?${searchQuery}`) : () => {}
+                searchQuery ? () => goTo(`/search?q=${searchQuery}`) : () => {}
               }
             >
               <Search />

@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Home() {
+export default function Home(props) {
   const classes = useStyles();
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -60,7 +60,11 @@ export default function Home() {
       <Typography align="left" variant="h4" className={classes.title}>
         Filmes Populares
       </Typography>
-      <MovieList movieList={movieList} />
+      <MovieList
+        movieList={movieList}
+        toggleFavorite={props.toggleFavorite}
+        favorites={props.favorites}
+      />
 
       <Grid
         container

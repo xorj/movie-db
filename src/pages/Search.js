@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Typography, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import {useLocation} from "react-router-dom";
 
 //Componentes
 import Loading from "../components/ui/loading/Loading";
@@ -19,8 +20,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
+
 export default function Search(props) {
   const classes = useStyles();
+  let query = useQuery();
+
   const [loaded, setLoaded] = useState(false);
   const [results, setResults] = useState([]);
   const [message, setMessage] = useState("");
@@ -28,7 +35,7 @@ export default function Search(props) {
   const getMovieSearch = () => {
     instance
       .get(
-        `search/movie?api_key=${instance.tmdb}&language=pt-BR&query=${props.location.search}&page=1&include_adult=false`
+        `search/movie?api_key=${instance.tmdb}&language=pt-BR&query=${query.get("q")}&page=1&include_adult=false`
       )
       .then((response) => {
         setResults(response.data.results);
@@ -44,7 +51,8 @@ export default function Search(props) {
       });
   };
 
-  useEffect(getMovieSearch, [props.location.search]);
+
+ useEffect(getMovieSearch, [props.search, query]);
 
   let content = <Loading />;
   if (loaded) {
@@ -55,9 +63,9 @@ export default function Search(props) {
         }}
       >
         <Typography align="left" variant="h4" className={classes.title}>
-          {message}{" "}
+          {message}
         </Typography>
-        <MovieList movieList={results} />
+        <MovieList movieList={results} toggleFavorite={props.toggleFavorite} favorites={props.favorites}/>
       </Grid>
     );
   }

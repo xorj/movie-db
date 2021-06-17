@@ -1,7 +1,10 @@
-import React from "react";
-import { Typography, Grid, Tooltip } from "@material-ui/core";
+import React, { useEffect } from "react";
+import { Typography, Grid, Tooltip, Button } from "@material-ui/core";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
+
+//Icones//
+import { Info, StarBorder as NonFav, Star as Fav } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   movieCard: {
@@ -24,6 +27,7 @@ export default function MovieList(props) {
   const theme = useTheme();
   const classes = useStyles();
   const movieList = props.movieList;
+
   return (
     <Grid
       container
@@ -32,33 +36,59 @@ export default function MovieList(props) {
       className={classes.movieList}
     >
       {movieList.map((movie) => (
-        <Link
-          to={`movie/${movie.id}`}
-          style={{ color: "inherit", textDecoration: "inherit" }}
-          key={movie.id}
-        >
-          <Tooltip title={movie.title} arrow>
-            <Grid
-              className={classes.movieCard}
+        <Tooltip title={movie.title} key={movie.id} arrow>
+          <Grid
+            container
+            direction="column"
+            justify="space-between"
+            className={classes.movieCard}
+            style={{
+              backgroundImage: `url(https://image.tmdb.org/t/p/w780/${movie.poster_path})`,
+            }}
+          >
+            <Typography
+              variant="h4"
+              align="center"
               style={{
-                backgroundImage: `url(https://image.tmdb.org/t/p/w780/${movie.poster_path})`,
+                background: "rgba(241,241,241, 0.6)",
+                borderRadius: "0px 0px 20px 0px",
+                width: "60px",
+                height: "1.8rem",
+                color: theme.palette.common.black,
               }}
             >
-              <Typography
-                variant="h4"
-                align="center"
-                style={{
-                  background: "rgba(241,241,241, 0.6)",
-                  borderRadius: "0px 0px 20px 0px",
-                  width: "60px",
-                  color: theme.palette.common.black,
-                }}
+              {movie.vote_average}
+            </Typography>
+            <Grid
+              container
+              justify="space-between"
+              style={{ marginLeft: "auto" }}
+            >
+              <Button
+                style={{ margin: "5px 10px", height: "30px" }}
+                variant="contained"
+                color="primary"
+                onClick={() => props.toggleFavorite(movie.id)}
               >
-                {movie.vote_average}
-              </Typography>
+                {props.favorites.indexOf(movie.id) !== -1 ? (
+                  <Fav color="secondary" fontSize="small" />
+                ) : (
+                  <NonFav color="secondary" fontSize="small" />
+                )}
+              </Button>
+              <Button
+                style={{ margin: "5px 10px", height: "30px" }}
+                variant="contained"
+                color="primary"
+                component={Link}
+                to={`/movie/${movie.id}`}
+                endIcon={<Info color="secondary" fontSize="small" />}
+              >
+                Info
+              </Button>
             </Grid>
-          </Tooltip>
-        </Link>
+          </Grid>
+        </Tooltip>
       ))}
     </Grid>
   );
