@@ -22,7 +22,6 @@ function App() {
         <Header/>
         <Switch>
           <Route path="/search" component={Search} />
-
           <Route path="/favorites" component={Favorites} />
           <Route path="/movie/:id" component={Movie} />
           <Route exact path="/" component={Home} />
