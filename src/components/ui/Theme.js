@@ -28,7 +28,7 @@ export default createMuiTheme({
     },
     h2: {
       fontFamily: "Roboto",
-      fontSize: "2rem",
+      fontSize: "1.5rem",
       fontWeight: 500,
       color: black,
     },

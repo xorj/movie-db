@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { Typography, Grid, IconButton } from "@material-ui/core";
+import React from "react";
+import { Typography, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 /*Componentes*/
-import instance from "../axios";
 import MovieList from "../components/MovieList";
 
 const useStyles = makeStyles((theme) => ({
@@ -20,17 +19,23 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Favorites(props) {
   const classes = useStyles();
-  const [movieList, setMovieList] = useState([]);
-
-
-  //useEffect(loadMovies, [props.favorites]);
 
   return (
     <Grid container direction="column" style={{ padding: "15px" }}>
       <Typography align="left" variant="h4" className={classes.title}>
         Filmes Favoritos
       </Typography>
-      <MovieList movieList={movieList} toggleFavorite={props.toggleFavorite}/>
+      {props.favorites.length ? (
+        <MovieList
+          movieList={props.favorites}
+          toggleFavorite={props.toggleFavorite}
+          favorites={props.favorites}
+        />
+      ) : (
+        <Typography align="left" variant="h4">
+          Sem filmes favoritos
+        </Typography>
+      )}
     </Grid>
   );
 }

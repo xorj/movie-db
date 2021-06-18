@@ -1,7 +1,7 @@
 import { ThemeProvider } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core/";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import theme from "./components/ui/Theme";
 
@@ -19,26 +19,25 @@ function App() {
     JSON.parse(window.localStorage.getItem("FAVORITOS")) || []
   );
 
-  const toggleFavorite = (id) => {
+  const toggleFavorite = (movie) => {
     let list = favorites;
-    const index = list.indexOf(id);
-    if (index !== -1) {
-      list = list.splice(index, 1);
-    } else {
-      list.push(id);
-    }
-    console.log(list);
 
-    window.localStorage.setItem("FAVORITOS", JSON.stringify(list));
+    const index = list.findIndex((m) => m.id === movie.id);
+    if (index !== -1) {
+      list.splice(index, 1);
+    } else {
+      list.push(movie);
+    }
+    window.localStorage.setItem("FAVORITOS", JSON.stringify([...list]));
     setFavorites([...list]);
   };
 
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
-        <Header />
+        <Header favoritesLength={favorites.length} />
         <Switch>
-          <Route path="/search">
+          <Route path="/search" >
             <Search toggleFavorite={toggleFavorite} favorites={favorites} />
           </Route>
           <Route path="/movie/:id" component={Movie} />
