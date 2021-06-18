@@ -11,3 +11,14 @@ Requisitos Extra:
 - [X] Adicionar uma caixa de busca na tela inicial e exibir os resultados em uma nova página;
 - [X] Permitir que o usuário adicione/remova filmes da página inicial como favoritos e fazer a persistência de dados;
 - [X] Exibir os filmes favoritos em uma nova página que permita a remoção destes.
+
+## Guia de Instalação
+
+Para rodar o projeto basta instalar o [Node.js](https://nodejs.org/en/download/current/) e em seguida no cmd digitar os seguintes comandos:
+
+```sh
+git clone https://github.com/xorj/movie-db.git
+cd /movie-db
+npm install
+npm start
+```
