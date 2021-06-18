@@ -10,4 +10,4 @@ Requisitos Extra:
 - [ ] Utilizar alguma gerência de estado;
 - [X] Adicionar uma caixa de busca na tela inicial e exibir os resultados em uma nova página;
 - [X] Permitir que o usuário adicione/remova filmes da página inicial como favoritos e fazer a persistência de dados;
-- [ ] Exibir os filmes favoritos em uma nova página que permita a remoção destes.
+- [X] Exibir os filmes favoritos em uma nova página que permita a remoção destes.
